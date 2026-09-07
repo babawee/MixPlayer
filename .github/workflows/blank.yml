@@ -24,13 +24,15 @@ jobs:
           distribution: temurin
           java-version: "17"
 
+      - name: Enable AndroidX
+        run: |
+          echo "android.useAndroidX=true" >> build-project/gradle.properties
+          echo "android.enableJetifier=true" >> build-project/gradle.properties
+
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: "8.10.2"
-
-            - name: Enable AndroidX
-        run: echo "android.useAndroidX=true" > build-project/gradle.properties
 
       - name: Build APK
         working-directory: build-project
