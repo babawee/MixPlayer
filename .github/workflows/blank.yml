@@ -29,6 +29,18 @@ jobs:
           echo "android.useAndroidX=true" >> build-project/gradle.properties
           echo "android.enableJetifier=true" >> build-project/gradle.properties
 
+      - name: Fix Java and Kotlin JVM targets
+        run: |
+          cat >> build-project/app/build.gradle <<'EOF'
+
+          android {
+              compileOptions {
+                  sourceCompatibility JavaVersion.VERSION_17
+                  targetCompatibility JavaVersion.VERSION_17
+              }
+          }
+          EOF
+
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
